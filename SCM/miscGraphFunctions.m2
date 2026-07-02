@@ -110,6 +110,8 @@ getLeavesOfDigraph = T -> select(vertices T, v -> degreeOut(T,v) == 0)
 
 getGeneTrees = k -> (
 
+    if k <= 2 or k >= 6 then return {};
+
     if k == 5 then (
         return {
             graph {{"A",0},{"B",0},{0,1},{"C",1},{1,2},{"D",2},{"E",2}},
@@ -128,13 +130,19 @@ getGeneTrees = k -> (
             graph {{"D",0},{"B",0},{0,1},{"A",1},{1,2},{"C",2},{"E",2}},
             graph {{"E",0},{"B",0},{0,1},{"A",1},{1,2},{"D",2},{"C",2}}
         };
-    ) else if k == 4 then (
+    );
+
+    if k == 4 then (
         return {
             graph {{"A",0},{"B",0},{0,1},{"C",1},{"D",1}},
             graph {{"A",0},{"C",0},{0,1},{"B",1},{"D",1}},
             graph {{"A",0},{"D",0},{0,1},{"B",1},{"C",1}}
         };
-    ) else (
-        return 0;
+    );
+
+    if k == 3 then (
+        return {
+            graph {{"A",0},{"B",0},{"C",0}}
+        };
     );
 )
