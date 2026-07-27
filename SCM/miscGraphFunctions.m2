@@ -19,22 +19,22 @@ multinomial = (m,L) -> (
 rootTreeFromEdge = (T, e) -> (
 
     -- 1) remove e
-    e = toList e;
-    E = edges(T);
-    newE = delete(set e, E);
+    ee := toList e;
+    E := edges(T);
+    newE := delete(set e, E);
     
     -- 2) add {-1, e#0} and {-1, e#1} and make undirected graph with these added
-    newE = newE | {set {-1_ZZ, e#0}, set {-1_ZZ, e#1}};
-    newT = graph newE;
+    newE = newE | {set {-1_ZZ, ee#0}, set {-1_ZZ, ee#1}};
+    newT := graph newE;
     
     -- 3) depth first search tree to direct edges in the tree away from root
-    toSearch = {-1_ZZ};
-    seen = {-1_ZZ};
-    directedEdges = {};
+    toSearch := {-1_ZZ};
+    seen := {-1_ZZ};
+    directedEdges := {};
     
     while #seen < #vertices(newT) do (
         
-        v = last toSearch;
+        v := last toSearch;
 
         for w in toList neighbors(newT, v) do (
         
@@ -48,6 +48,31 @@ rootTreeFromEdge = (T, e) -> (
         
         toSearch = delete(v, toSearch);
 
+    );
+
+    return digraph directedEdges
+)
+
+rootTreeFromVertex = (T, v) -> (
+    
+    toSearch := {v};
+    seen := {v};
+    directedEdges := {};
+
+    while #seen < #vertices T do (
+        
+        w := last toSearch;
+        
+        for u in toList neighbors(T, w) do (
+
+            if member(u, seen) == false then (
+                directedEdges = directedEdges | {{w,u}};
+                seen = seen | {u};
+                toSearch = toSearch | {u};
+            );
+        );
+
+        toSearch = delete(w, toSearch);
     );
 
     return digraph directedEdges

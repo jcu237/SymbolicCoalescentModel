@@ -3,15 +3,23 @@ needs "./SCM/SCM.m2"
 
 geneTrees = getGeneTrees 5
 
-rootedTrees = apply(edges first geneTrees, e -> rootTreeFromEdge(first geneTrees, e))
+-- rootedTrees = apply(edges first geneTrees, e -> rootTreeFromEdge(first geneTrees, e))
+TT = graph {
+    {1,"A"}, {2,"B"}, {3,"C"}, {4,"D"}, {5,"E"},
+    {1,8}, {2,8}, {6,8},
+    {3,9}, {6,9}, {7,9},
+    {4,10}, {5,10}, {7,10}
+}
+rootedTrees = apply(toList(1..7), i -> rootTreeFromVertex(TT, i))
+
 
 RQuintet = QQ[u_1..u_15]
-S = QQ[x_1..x_3]
+S = QQ[x_1..x_9]
 
-edgeHashes = new HashTable from
+edgeHashes = new HashTable from 
 for T in rootedTrees list (
-    E := select(edges T, e -> degreeOut(T,e#1) > 0);
-    T => new HashTable from apply(#E, i -> E#i => x_(i+1))
+    E := {{1,8},{2,8},{6,8},{3,9},{6,9},{7,9},{4,10},{5,10},{7,10}};
+    T => new HashTable from apply(#E, i -> if member(E#i, edges T) then E#i => x_(i+1) else reverse(E#i) => x_(i+1))
 )
 
 hybridHash = new HashTable from {}
@@ -24,6 +32,8 @@ for T in rootedTrees list (
 quintetIdeals = quintetParams / ker
 
 assert(#quintetIdeals == 7)
+assert(#unique quintetIdeals == 7)
+
 
 geneTreesABCD = getGeneTrees 4;
 
