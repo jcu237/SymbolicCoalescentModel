@@ -28,8 +28,10 @@ for i from 0 to 48 do (
     );
 )
 
+-- check whether all ideals are prime, compute dimension and degree
 apply(keys idealHash13, I -> (isPrime I, dim I, degree I))
 
+-- check ideals have correct dimension, verifying we have full ideals
 apply(keys idealHash13, I -> dim I == rank jacobian matrix map(S,R,value concatenate("im", toString first idealHash13#I)))
 
 H = new HashTable from idealHash13
@@ -74,8 +76,10 @@ for i from 0 to 51 do (
     );
 )
 
+-- verify all ideals are prime, compute dimension and degree
 apply(keys idealHash23, I -> (isPrime I, dim I, degree I))
 
+-- verify all ideals have correct dimension, so full ideal is found
 apply(keys idealHash23, I -> dim I == rank jacobian matrix map(S,R,value concatenate("im", toString first idealHash23#I)))
 
 H = new HashTable from idealHash23
@@ -115,8 +119,10 @@ for i from 0 to 6 do (
     );
 )
 
+-- verify all found ideals are prime, compute dim and degree
 apply(keys idealHashTree, I -> (isPrime I, dim I, degree I))
 
+-- verify we have correct dimension, so full ideal is found
 apply(keys idealHashTree, I -> dim I == rank jacobian matrix map(S,R,value concatenate("im", toString first idealHashTree#I)))
 
 H = new HashTable from idealHashTree
@@ -124,3 +130,66 @@ H = new HashTable from idealHashTree
 M = applyPairs(H, (k,v) -> (trimmedETree_v, k))
 
 "bucketTreeHash.m2" << "idealTreeHash = " << toExternalString M << close
+
+end
+
+
+
+-----------------------
+-- Analysis
+-----------------------
+restart
+R = QQ[u_0..u_15]
+
+needs "bucket13Hash.m2"
+needs "bucket23Hash.m2"
+needs "bucketTreeHash.m2"
+
+idealTreeHash
+ideal13Hash
+ideal23Hash
+
+-- no tree ideals appear in the other hash tables
+all(values idealTreeHash, I -> member(I, values ideal13Hash) == false)
+all(values idealTreeHash, I -> member(I, values ideal23Hash) == false)
+
+-- there are two ideals which appear for both the 2 3-cycle graphs and 1 3-cycle graphs 
+any(values ideal13Hash, I -> member(I, values ideal23Hash))
+select(keys ideal13Hash, k -> member(ideal13Hash#k, values ideal23Hash))
+
+needs "./../graphs/threeCycleGraphs.m2"
+needs "./../graphs/twoThreeCycleGraphs.m2"
+
+----------------
+-- {25,26,34,35}
+---- these are the graphs where
+------ there is 1 3-cycle at the central internal vertex
+------ the root is on the edge pendant to D or the edge pendant to E
+------ {N_4(v_9), N_4(v_10)}
+-- {128,129,130,131,132,135,139,140,141,144,148,149,150,151,152,153,154,155,160,164,165,166,171,175,176,177}
+---- these are the graphs where
+------ there are 2 3-cycles, one at the central internal vertex and one on the D-E cherry
+------ the root is either on the D-E cherry 3-cycle or on the edge pendant to D or on the edge pendant to E
+------ {N_5(v_i) : 1 <= i <= 5}
+----------------
+
+I1 = ideal13Hash#{25,26,34,35}
+I1 == ideal23Hash#{128,129,130,131,132,135,139,140,141,144,148,149,150,151,152,153,154,155,160,164,165,166,171,175,176,177}
+
+----------------
+-- {30,31,39,40}
+---- these are the graphs where 
+------ there is 1 3-cycle at the central internal vertex
+------ the root is on the pendant edge to A or the pendant edge to B
+------ {N_4(v_1), N_4(v_2)}
+--{7,12,13,14,18,21,22,23,34,39,40,41,45,48,49,50,54,55,56,57,58,59,60,61,62,63}
+---- these are the graphs where
+------ there are 2 3-cycles, one at the central vertex and one on the A-B cherry
+------ the root is either on the A-B cherry 3-cycle or on the edge pendant to D or on the edge pendant to E
+------ {N_6(v_i) : 1 <= i <= 5}
+-----------------
+
+I2 = ideal13Hash#{30,31,39,40}
+I2 == ideal23Hash#{7,12,13,14,18,21,22,23,34,39,40,41,45,48,49,50,54,55,56,57,58,59,60,61,62,63}
+
+

@@ -48,6 +48,7 @@ buckets5 = keys ideals5Hash
 
 ----------
 -- {4,5}
+-- {N_14(v_1), N_14(v_2)}
 ----------
 I = ideals5Hash#{4,5}
 f4 = map(S,R,im4);
@@ -73,6 +74,7 @@ rank((jacobian matrix f5)_C)
 
 ----------
 -- {0}
+-- {N_14(v_6)}
 ----------
 I = ideals5Hash#{0}
 f0 = map(S,R,im0);
@@ -83,6 +85,7 @@ tally((flatten entries gens I) / degree)
 
 ----------
 -- {1}
+-- {N_14(v_7)}
 ----------
 I = ideals5Hash#{1}
 f1 = map(S,R,im1)
@@ -93,6 +96,7 @@ tally((flatten entries gens I) / degree)
 
 ----------
 -- {2}
+-- {N_14(v_8)}
 ----------
 I = ideals5Hash#{2};
 f2 = map(S,R,im2);
@@ -103,6 +107,7 @@ tally((flatten entries gens I) / degree)
 
 ----------
 -- {3}
+-- {N_14(v_9)}
 ----------
 I = ideals5Hash#{3};
 f3 = map(S,R,im3);
@@ -113,11 +118,13 @@ tally((flatten entries gens I) / degree)
 
 ----------
 -- {6}
+-- {N_14(v_3)}
 ----------
 I = ideals5Hash#{6};
 f6 = map(S,R,im6);
 rank jacobian matrix f6
 dim I, degree I
+tally((flatten entries gens I) / degree)
 
 -- not full ideal
 U = support(basis(1,R) % I)
@@ -130,6 +137,7 @@ tally((flatten entries gens IU6) / degree)
 
 ----------
 -- {7,8}
+-- {N_14(v_4), N_14(v_5)}
 ----------
 I = ideals5Hash#{7,8}
 f7 = map(S,R,im7);
@@ -147,6 +155,7 @@ fU8 = map(S,RU,im8_(U / index))
 
 M7 = matroid jacobian matrix fU7
 M8 = matroid jacobian matrix fU8
+M7 == M8
 
 C = {1,3,5,6,8,9}
 rank((jacobian matrix f7)_C)

@@ -108,6 +108,7 @@ buckets4 = keys ideal4Hash
 
 ----------------
 -- {9,14,17}
+-- {N_8(v_1), N_8(v_6), N_8(v_7)}
 ----------------
 f9 = map(S,R,im9);
 f14 = map(S,R,im14);
@@ -122,6 +123,7 @@ tally((flatten entries gens I) / degree)
 
 ----------------
 -- {25, 26}
+-- {N_9(v_6), N_9(v_9)}
 ----------------
 f25 = map(S,R,im25)
 f26 = map(S,R,im26)
@@ -144,6 +146,7 @@ tally((flatten entries gens I26) / degree)
 
 ---------------
 -- {11}
+-- {N_8(v_10)}
 ---------------
 f11 = map(S,R,im11)
 rank jacobian matrix f11
@@ -154,6 +157,7 @@ tally((flatten entries gens I) / degree)
 
 --------------
 -- {12}
+-- {N_8(v_4)}
 --------------
 f12 = map(S,R,im12)
 rank jacobian matrix f12
@@ -164,6 +168,7 @@ tally((flatten entries gens I) / degree)
 
 --------------
 -- {13}
+-- {N_8(v_5)}
 --------------
 f13 = map(S,R,im13)
 rank jacobian matrix f13
@@ -174,6 +179,7 @@ tally((flatten entries gens I) / degree)
 
 --------------
 -- {10,15,16}
+-- {N_8(v_3), N_8(v_8), N_8(v_9)}
 --------------
 f10 = map(S,R,im10);
 f15 = map(S,R,im15);
@@ -187,6 +193,7 @@ tally((flatten entries gens I) / degree)
 
 -------------
 -- {18}
+-- {N_9(v_1)}
 -------------
 f18 = map(S,R,im18)
 rank jacobian matrix f18
@@ -197,6 +204,7 @@ tally((flatten entries gens I) / degree)
 
 -------------
 -- {19} -- cant verify degree
+-- {N_9(v_2)}
 -------------
 f19 = map(S,R,im19)
 rank jacobian matrix f19
@@ -206,6 +214,7 @@ tally((flatten entries gens I) / degree)
 
 -------------
 -- {20}
+-- {N_9(v_10)}
 -------------
 f20 = map(S,R,im20); 
 rank jacobian matrix f20
@@ -216,6 +225,7 @@ tally((flatten entries gens I) / degree)
 
 --------------
 -- {21}
+-- {N_9(v_4)}
 --------------
 f21 = map(S,R,im21);
 rank jacobian matrix f21
@@ -226,6 +236,7 @@ tally((flatten entries gens I) / degree)
 
 --------------
 -- {22}
+-- {N_9(v_5)}
 --------------
 f22 = map(S,R,im22);
 rank jacobian matrix f22
@@ -236,6 +247,7 @@ tally((flatten entries gens I) / degree)
 
 -------------
 -- {7,8}
+-- {N_7(v_6), N_7(v_9)}
 -------------
 f7 = map(S,R,im7);
 f8 = map(S,R,im8);
@@ -258,12 +270,14 @@ tally((flatten entries gens IU8) / degree)
 
 -------------
 -- {23,24}
+-- {N_9(v_7), N_9(v_8)}
 -------------
 f23 = map(S,R,im23)
 f24 = map(S,R,im24)
 apply({f23,f24}, f -> rank jacobian matrix f)
 I = ideal4Hash#{23,24}
 (dim I, degree I)
+tally((flatten entries gens I) / degree)
 
 -- dimension too large, reducing by linears doesnt help with GB, but does with matroids
 needsPackage "Matroids" 
@@ -283,6 +297,7 @@ rank((jacobian matrix f24)_{1,3,4,6,10,11})
 
 ------------
 -- {0}
+-- {N_7(v_2)}
 ------------
 f0 = map(S,R,im0);
 rank jacobian matrix f0
@@ -293,6 +308,7 @@ tally((flatten entries gens I) / degree)
 
 ------------
 -- {1}
+-- {N_7(v_3)}
 ------------
 f1 = map(S,R,im1);
 rank jacobian matrix f1
@@ -303,6 +319,7 @@ tally((flatten entries gens I) / degree)
 
 -------------
 -- {2}
+-- {N_7(v_10)}
 -------------
 f2 = map(S,R,im2);
 rank jacobian matrix f2
@@ -313,12 +330,14 @@ tally((flatten entries gens I) / degree)
 
 ---------------
 -- {5,6}
+-- {N_7(v_7), N_7(v_8)}
 ---------------
 f5 = map(S,R,im5);
 f6 = map(S,R,im6);
 apply({f5,f6}, f -> rank jacobian matrix f)
 I = ideal4Hash#{5,6};
 (dim I, degree I)
+tally((flatten entries gens I) / degree)
 
 -- again need matroids
 U = support(basis(1,R) % I)
@@ -336,6 +355,7 @@ rank((jacobian matrix f6)_{4,6,10,11,12,13})
 
 ----------------
 -- {3}
+-- {N_7(v_4)} 
 ----------------
 f3 = map(S,R,im3);
 rank jacobian matrix f3
@@ -346,6 +366,7 @@ tally((flatten entries gens I) / degree)
 
 ---------------
 -- {4}
+-- {N_7(v_5)}
 ---------------
 f4 = map(S,R,im4);
 rank jacobian matrix f4
@@ -359,6 +380,7 @@ restart
 
 ---------------------------
 -- {27,28,29,30,31,32,33}
+-- {N_10(v_1), N_10(v_2), N_10(v_3), N_10(v_6), N_10(v_7), N_10(v_8), N_10(v_9)}
 ---------------------------
 needsPackage "NumericalImplicitization"
 
@@ -377,7 +399,6 @@ f31 = map(S,R,im31);
 f32 = map(S,R,im32);
 f33 = map(S,R,im33);
 
-apply({f27,f28,f29,f30,f31,f32,f33}, f -> rank jacobian matrix f)
 I = ideal4Hash#{27,28,29,30,31,32,33}
 U = support(basis(1,R) % I)
 RU = QQ[U]
@@ -423,6 +444,8 @@ buckets34 = keys ideal34Hash
 
 -----------------------------
 -- {26,27,28,29,30,31,32,33,34,35,36,37,38}
+-- {N_13(v_1), N_13(v_2), N_13(v_3)} -- have 3 possible hybrid locations in 3-cycle
+-- {N_13(v_4), N_13(v_5)} -- have 2 possible hybrid locations in 3-cycle
 -- these have hybrid ancestral to C
 -----------------------------
 f0 = apply(buckets34#0, i -> map(S, R, value concatenate("im", toString i)));
@@ -435,6 +458,8 @@ tally((flatten entries gens I) / degree)
 
 ----------------------------
 -- {0,1,2,3,4,5,6,7,8,9,10,11,12}
+-- {N_11(v_1), N_11(v_2), N_11(v_3)} -- have 3 possible hybrid locations in 3-cycle
+-- {N_11(v_4), N_11(v_5)} -- have 2 possible hybrid locations in 3-cycle
 -- these have hybrid ancestral to A
 ----------------------------
 f1 = apply(buckets34#1, i -> map(S, R, value concatenate("im", toString i)));
@@ -446,6 +471,8 @@ tally((flatten entries gens I) / degree)
 
 ----------------------------
 -- {13,14,15,16,17,18,19,20,21,22,23,24,25}
+-- {N_12(v_1), N_12(v_2), N_12(v_3)} -- have 3 possible hybrid locations in 3-cycle
+-- {N_12(v_4), N_12(v_5)} -- have 2 possible hybrid locations in 3-cycle
 -- these have hybrid ancestral to B
 ----------------------------
 f2 = apply(buckets34#2, i -> map(S, R, value concatenate("im", toString i)));
@@ -455,28 +482,4 @@ I = ideal34Hash#(buckets34#2)
 isPrime I
 tally((flatten entries gens I) / degree)
 
-
--- compare to ideals of networks with just a 4-cycle
-needs "bucket4Hash.m2"
-any(values ideal34Hash, J -> member(J, values ideal4Hash))
-
-
-needsPackage "Graphs"
-needs "../graphs/threeAndFourCycleGraphs.m2"
-
-avoidStructs = {
-    {{4,5},{4,6},{5,6},{5,"D"},{6,"E"}} / set
-}
-
-trimmedE34 = positions(delete(null, E34), e -> all(avoidStructs, struct -> isSubset(struct, e / set) == false))
-
-b0 = trimmedE34_(buckets34#0)
-b1 = trimmedE34_(buckets34#1)
-b2 = trimmedE34_(buckets34#2)
-
-apply(E34_b0, N -> select(vertices digraph N, v -> degreeIn(digraph N, v) == 2))
-apply(E34_b1, N -> select(vertices digraph N, v -> degreeIn(digraph N, v) == 2))
-apply(E34_b2, N -> select(vertices digraph N, v -> degreeIn(digraph N, v) == 2))
-
-
-
+end
