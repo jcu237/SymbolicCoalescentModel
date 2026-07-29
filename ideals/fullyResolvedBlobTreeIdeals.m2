@@ -110,8 +110,8 @@ idealHashTree = new MutableHashTable from {}
 
 for i from 0 to 6 do (
     
-    I := ideal flatten values componentsOfKernel(4,IMTree#i);
-
+    --I := ideal flatten values componentsOfKernel(4,IMTree#i);
+    I := ker IMTree#i;
     if idealHashTree#?I then (
         idealHashTree#I = idealHashTree#I | {i};
     ) else (
